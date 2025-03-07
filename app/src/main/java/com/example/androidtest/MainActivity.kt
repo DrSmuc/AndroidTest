@@ -1,9 +1,13 @@
 package com.example.androidtest
 
+import android.R.attr.value
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.view.View
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.Button
+import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -54,6 +58,14 @@ class MainActivity : AppCompatActivity() {
         add_b.setOnClickListener() {
             counter++;
             refresh();
+            if (counter > 10) {
+                val intent = Intent(this@MainActivity, SuccessActivity::class.java);
+                val name: EditText = findViewById(R.id.plainTextName)
+                val nameText = name.text.toString()
+                intent.putExtra("counter", counter)
+                intent.putExtra("name", nameText)
+                startActivity(intent);
+            }
         }
 
         sub_b.setOnClickListener() {
@@ -61,6 +73,22 @@ class MainActivity : AppCompatActivity() {
             refresh();
         }
 
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        val inflater = menuInflater
+        inflater.inflate(R.menu.menu_main, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.restore_counter -> {
+                // kod za 19. zadatak
+                true
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     fun refresh() {

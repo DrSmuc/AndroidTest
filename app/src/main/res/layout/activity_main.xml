@@ -16,7 +16,9 @@
         android:layout_height="19dp"
         android:text="@string/_0"
         android:textAlignment="center"
-        tools:ignore="MissingConstraints,TextSizeCheck" />
+        tools:ignore="MissingConstraints,TextSizeCheck"
+        android:background="?colorSecondary"
+        android:textColor="?colorOnSecondary" />
 
     <Button
         android:id="@+id/add_b"
@@ -31,5 +33,16 @@
         android:layout_height="wrap_content"
         android:text="@string/sub"
         tools:ignore="MissingConstraints" />
+
+    <EditText
+        android:id="@+id/plainTextName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="text"
+        android:minHeight="48dp"
+        android:text="Name:"
+        android:background="?colorSecondary"
+        android:textColor="?colorOnSecondary" />
 
 </LinearLayout>
