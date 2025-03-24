@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools" android:id="@+id/main" android:layout_width="match_parent" android:layout_height="match_parent" android:background="@drawable/running_abstract" tools:context=".MainActivity">
+    <androidx.appcompat.widget.Toolbar android:id="@+id/my_toolbar" android:layout_width="match_parent" android:layout_height="80dp" android:background="?attr/colorPrimary" android:paddingTop="20dp" android:elevation="4dp" android:theme="@style/ThemeOverlay.AppCompat.ActionBar" app:popupTheme="@style/ThemeOverlay.AppCompat.Light" app:layout_constraintTop_toTopOf="parent"/>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center"
     android:padding="16dp"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:background="@drawable/running_abstract">
 
     <TextView
         android:id="@+id/counterText"
@@ -41,8 +43,9 @@
         android:ems="10"
         android:inputType="text"
         android:minHeight="48dp"
-        android:text="Name:"
+        android:text="@string/name"
         android:background="?colorSecondary"
         android:textColor="?colorOnSecondary" />
 
 </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

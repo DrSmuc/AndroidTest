@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="add">Zbrajanje</string>
+    <string name="sub">Oduzimanje</string>
+    <string name="_0">0</string>
+    <string name="po_aljite_sms">Pošalji SMS</string>
+    <string name="name">Ime:</string>
+</resources>

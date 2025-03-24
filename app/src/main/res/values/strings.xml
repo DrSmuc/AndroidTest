@@ -1,6 +1,15 @@
 <resources>
-    <string name="app_name">AndroidTest</string>
+    <string name="app_name" translatable="false">FitRunner</string>
     <string name="add">Add</string>
     <string name="sub">Sub</string>
     <string name="_0">0</string>
+    <string name="po_aljite_sms">Send SMS</string>
+    <string name="name">Name:</string>
+    <string name="_38164111222">+38164111222</string>
+    <string name="_381651234567">+381651234567</string>
+    <string name="_381601234567">+381601234567</string>
+    <string name="resetiraj">Reset</string>
+    <string name="hrvatski">Hrvatski</string>
+    <string name="engleski">engleski</string>
+    <string name="name_success" />
 </resources>
