@@ -49,6 +49,8 @@ class MainActivity : AppCompatActivity() {
             Log.i("MyLog", "Baza već sadrži podatke, nije dodano ništa")
         }
 
+
+
         Toast.makeText(applicationContext, "onCreate", Toast.LENGTH_SHORT).show();
         Log.i("MyLog", "onCreate");
     }
@@ -89,6 +91,15 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+        val sharedPreferences = getSharedPreferences("UserPreferences", MODE_PRIVATE)
+        val savedName = sharedPreferences.getString("user_name", "")
+        val savedCount = sharedPreferences.getInt("counter", 0)
+        val name: EditText = findViewById(R.id.plainTextName)
+        name.setText(savedName)
+        counter = savedCount
+
+        display.text = counter.toString();
+
         sub_b.setOnClickListener() {
             counter--;
             refresh();
@@ -122,12 +133,24 @@ class MainActivity : AppCompatActivity() {
 
     override fun onPause() {
         super.onPause()
+
+        val sharedPreferences = getSharedPreferences("UserPreferences", MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+
+        val name: EditText = findViewById(R.id.plainTextName)
+        editor.putString("user_name", name.text.toString())
+        editor.putInt("counter", counter)
+        editor.apply()
+
         Toast.makeText(applicationContext, "onPause", Toast.LENGTH_SHORT).show()
         Log.i("MyLog", "onPause")
     }
 
     override fun onStop() {
         super.onStop()
+
+
+
         Toast.makeText(applicationContext, "onStop", Toast.LENGTH_SHORT).show()
         Log.i("MyLog", "onStop")
     }
