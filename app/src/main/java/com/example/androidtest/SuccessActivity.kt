@@ -1,18 +1,28 @@
 package com.example.androidtest
 
+import android.annotation.SuppressLint
+import android.os.Bundle
+import android.widget.*
+import androidx.appcompat.app.AppCompatActivity
+import com.example.androidtest.R.*
+import com.example.steptracker.DatabaseHelper
+
+
 import android.content.Intent
 import android.net.Uri
-import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.RadioButton
 import android.widget.RadioGroup
 import android.widget.TextView
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 
 class SuccessActivity : AppCompatActivity() {
-    lateinit var textView: TextView
+    private lateinit var textView: TextView
+    private lateinit var listView: ListView
+    private lateinit var btnClearData: Button
+    private lateinit var dbHelper: DatabaseHelper
+
     lateinit var editTextMessage: EditText
     lateinit var sendSMSButton: Button
     lateinit var radioGroup: RadioGroup
@@ -20,9 +30,23 @@ class SuccessActivity : AppCompatActivity() {
     lateinit var radioButtonPhone2: RadioButton
     lateinit var radioButtonPhone3: RadioButton
 
+    @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_success)
+        setContentView(layout.activity_success)
+
+        textView = findViewById(id.textView)
+        listView = findViewById(id.listView)
+        btnClearData = findViewById(id.btnClearData)
+        dbHelper = DatabaseHelper(this)
+
+        loadUsers()
+
+        btnClearData.setOnClickListener {
+            dbHelper.clearDatabase()
+            loadUsers()
+            Toast.makeText(this, "Popis korisnika je obrisan", Toast.LENGTH_SHORT).show()
+        }
 
         textView = findViewById(R.id.textView)
         editTextMessage = findViewById(R.id.textView)
@@ -69,4 +93,18 @@ class SuccessActivity : AppCompatActivity() {
             Toast.makeText(this, "Ne mogu pokrenuti SMS aplikaciju!", Toast.LENGTH_SHORT).show()
         }
     }
+
+    private fun loadUsers() {
+        val users = dbHelper.getSuccessfulUsersWithSteps() // Mora vraćati List<Pair<String, Int>>
+        textView.text = if (users.isEmpty()) {
+            "Nema korisnika koji su postigli 10 koraka."
+        } else {
+            "Korisnici koji su postigli 10 koraka:"
+        }
+
+        val adapter = UserListAdapter(this, users)
+        listView.adapter = adapter
+    }
+
+
 }

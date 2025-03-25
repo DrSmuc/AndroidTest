@@ -2,7 +2,9 @@
 <resources>
     <string name="add">Zbrajanje</string>
     <string name="sub">Oduzimanje</string>
-    <string name="_0">0</string>
     <string name="po_aljite_sms">Pošalji SMS</string>
-    <string name="name">Ime:</string>
+    <string name="name">"Ime: "</string>
+    <string name="resetiraj">Resetiraj</string>
+    <string name="delete">Obriši</string>
+    <string name="tableHeaderTxt">Korisnici sa 10 koraka:</string>
 </resources>

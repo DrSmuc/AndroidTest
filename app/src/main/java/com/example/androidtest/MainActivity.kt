@@ -18,6 +18,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.example.steptracker.DatabaseHelper
 import java.util.Locale
 
 
@@ -25,6 +26,7 @@ class MainActivity : AppCompatActivity() {
 
     private var counter = 0;
     private lateinit var display: TextView;
+    private lateinit var dbHelper: DatabaseHelper;
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,6 +38,17 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+        var dbHelper = DatabaseHelper(this)
+
+        if (dbHelper.isTableEmpty()) {
+            dbHelper.addUser("Mirko", 10)
+            dbHelper.addUser("Slavko", 10)
+            dbHelper.addUser("Caco", 10)
+            Log.i("MyLog", "Podaci dodani u bazu jer je bila prazna")
+        } else {
+            Log.i("MyLog", "Baza već sadrži podatke, nije dodano ništa")
+        }
+
         Toast.makeText(applicationContext, "onCreate", Toast.LENGTH_SHORT).show();
         Log.i("MyLog", "onCreate");
     }
@@ -64,9 +77,11 @@ class MainActivity : AppCompatActivity() {
         add_b.setOnClickListener() {
             counter++;
             refresh();
-            if (counter > 10) {
+            if (counter >= 10) {
+                var dbHelper = DatabaseHelper(this)
                 val intent = Intent(this@MainActivity, SuccessActivity::class.java);
                 val name: EditText = findViewById(R.id.plainTextName)
+                dbHelper.addUser(name.text.toString(), counter.toInt())
                 val nameText = name.text.toString()
                 intent.putExtra("counter", counter)
                 intent.putExtra("name", nameText)
@@ -135,7 +150,6 @@ class MainActivity : AppCompatActivity() {
         return super.onCreateOptionsMenu(menu)
     }
 
-    // Odabir opcije iz izbornika
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.restore_counter -> {
@@ -161,7 +175,6 @@ class MainActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-    // Funkcija za promjenu jezika
     @Suppress("DEPRECATION")
     fun changeLanguage(context: Context, language: String) {
         val locale = Locale(language)
@@ -173,7 +186,6 @@ class MainActivity : AppCompatActivity() {
         res.updateConfiguration(config, res.displayMetrics)
     }
 
-    // KONTEKSTUALNI IZBORNIK
     override fun onCreateContextMenu(menu: ContextMenu, v: View, menuInfo: ContextMenu.ContextMenuInfo?) {
         super.onCreateContextMenu(menu, v, menuInfo)
         menuInflater.inflate(R.menu.menu_float, menu)
@@ -190,4 +202,5 @@ class MainActivity : AppCompatActivity() {
             else -> super.onContextItemSelected(item)
         }
     }
+
 }
